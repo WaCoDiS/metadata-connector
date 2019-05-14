@@ -18,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -25,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
+@Service
 public class DataAccessService implements DataAccessProvider {
 
     private static final String DATA_ENVELOPES_ENDPOINT = "/dataenvelopes";
@@ -80,17 +82,11 @@ public class DataAccessService implements DataAccessProvider {
     }
 
     @Override
-    public List<AbstractDataEnvelope> searchDataEnvelopes(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException {
-        ResponseEntity<List<AbstractDataEnvelope>> response = dataAccessService
-                .exchange(
-                        DATA_ENVELOPES_SEARCH_ENDPOINT,
-                        HttpMethod.GET,
-                        null,
-                        new ParameterizedTypeReference<List<AbstractDataEnvelope>>() {
-                }
-                );
+    public AbstractDataEnvelope searchSingleDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException {
+        ResponseEntity<AbstractDataEnvelope> response = dataAccessService
+                .postForEntity(DATA_ENVELOPES_SEARCH_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
 
-        LOGGER.debug("GET request for JobDefinition was sent with response code: {}",
+        LOGGER.debug("POST request for DataEnvelope was sent with response code: {}",
                 response.getStatusCode());
 
         if (!response.hasBody()) {

@@ -17,7 +17,7 @@ public interface DataAccessProvider {
     public AbstractDataEnvelope createDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
 
     public AbstractDataEnvelope updateDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
-
-    public List<AbstractDataEnvelope> searchDataEnvelopes(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
+    
+    public AbstractDataEnvelope searchSingleDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
 
 }
