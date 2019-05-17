@@ -14,9 +14,10 @@ import de.wacodis.metadataconnector.model.AbstractDataEnvelopeTimeFrame;
 import de.wacodis.metadataconnector.model.SensorWebDataEnvelope;
 import java.util.Arrays;
 import org.joda.time.DateTime;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,7 +37,6 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
-@RunWith(SpringRunner.class)
 @RestClientTest(DataAccessService.class)
 @ContextConfiguration(classes = {DataAccessConfiguration.class, DataAccessService.class})
 public class DataAccessServiceTest {
@@ -58,7 +58,7 @@ public class DataAccessServiceTest {
 
     private SensorWebDataEnvelope expEnv;
 
-    @Before
+    @BeforeEach
     public void init() {
         expEnv = prepareEnvelope();
         testEnv = prepareEnvelope();
@@ -94,7 +94,7 @@ public class DataAccessServiceTest {
         AbstractDataEnvelope result = service.searchSingleDataEnvelope(testEnv);
 
         mockServer.verify();
-        Assert.assertEquals(expEnv, result);
+        Assertions.assertEquals(expEnv, result);
     }
 
     private SensorWebDataEnvelope prepareEnvelope() {
