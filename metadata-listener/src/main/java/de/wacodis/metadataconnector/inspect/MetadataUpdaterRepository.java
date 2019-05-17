@@ -10,24 +10,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Repository for DataEnvelope specific MetadatUpdater
+ * Repository for {@link AbstractMetadataUpdater} that are specific to instances
+ * of {@link AbstractDataEnvelope}
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
 public class MetadataUpdaterRepository {
 
     @Autowired
-    List<MetadataUpdater> metadataUpdaterList;
+    List<AbstractMetadataUpdater> metadataUpdaterList;
 
     /**
-     * Retrieves a MetadataUpdater depending on the DataEnvelope type
+     * Retrieves a {@link AbstractMetadataUpdater} depending on the
+     * {@link AbstractDataEnvelope} type
      *
-     * @param dateEnvelope the DataEnvelope to retrieve the MetadataUpdater for
-     * @return the MetadataUpdater corresponding to a DataEnvelope type
+     * @param dateEnvelope the {@link AbstractDataEnvelope} to retrieve the
+     * {@link AbstractMetadataUpdater} for
+     * @return the {@link AbstractMetadataUpdater} corresponding to a
+     * {@link AbstractDataEnvelope} type
      */
-    public MetadataUpdater getMetadataUpdater(AbstractDataEnvelope dateEnvelope) {
-        MetadataUpdater candidate = null;
-        for (MetadataUpdater updater : metadataUpdaterList) {
+    public AbstractMetadataUpdater getMetadataUpdater(AbstractDataEnvelope dateEnvelope) {
+        AbstractMetadataUpdater candidate = null;
+        for (AbstractMetadataUpdater updater : metadataUpdaterList) {
             if (updater.supportsDataEnvelope(dateEnvelope)) {
                 candidate = updater;
                 break;

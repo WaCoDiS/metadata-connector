@@ -15,18 +15,19 @@ import org.joda.time.DateTime;
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
-public abstract class MetadataUpdater<T extends AbstractDataEnvelope> {
+public abstract class AbstractMetadataUpdater<T extends AbstractDataEnvelope> {
 
     public abstract boolean supportsDataEnvelope(AbstractDataEnvelope dataEnvelop);
 
     public abstract AbstractDataEnvelope updateDataEnvelope(T existingDataEnvelope, T newDataEnvelope);
 
     /**
-     * Merges two areas of interest together
+     * Merges two instances of {@link AbstractDataEnvelopeAreaOfInterest}
+     * together
      *
-     * @param aoi01 first area of interest
-     * @param aoi02 second area of interest
-     * @return merged area of interest
+     * @param aoi01 first {@link AbstractDataEnvelopeAreaOfInterest}
+     * @param aoi02 second {@link AbstractDataEnvelopeAreaOfInterest}
+     * @return new merged instance of {@link AbstractDataEnvelopeAreaOfInterest}
      */
     public AbstractDataEnvelopeAreaOfInterest mergeAreaOfInterest(
             AbstractDataEnvelopeAreaOfInterest aoi01,
@@ -85,11 +86,11 @@ public abstract class MetadataUpdater<T extends AbstractDataEnvelope> {
     }
 
     /**
-     * Merges two timeframes togetger
+     * Merges two {@link AbstractDataEnvelopeTimeFrame} instances together
      *
-     * @param timeFrame01 first timeframe
-     * @param timeFrame02 second timeframe
-     * @return the merged timeframe
+     * @param timeFrame01 first {@link AbstractDataEnvelopeTimeFrame}
+     * @param timeFrame02 second {@link AbstractDataEnvelopeTimeFrame}
+     * @return the new merged instance of {@link AbstractDataEnvelopeTimeFrame}
      */
     public AbstractDataEnvelopeTimeFrame mergeTimeFrame(AbstractDataEnvelopeTimeFrame timeFrame01, AbstractDataEnvelopeTimeFrame timeFrame02) {
         AbstractDataEnvelopeTimeFrame mergedTimeFrame = new AbstractDataEnvelopeTimeFrame();
