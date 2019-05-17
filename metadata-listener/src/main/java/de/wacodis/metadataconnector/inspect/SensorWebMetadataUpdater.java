@@ -9,11 +9,11 @@ import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.model.SensorWebDataEnvelope;
 
 /**
- * MetadataUpdater for SensorWebDataEnvelope instances
+ * MetadataUpdater for {@link SensorWebDataEnvelope} instances
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
-public class SensorWebMetadataUpdater implements MetadataUpdater<SensorWebDataEnvelope> {
+public class SensorWebMetadataUpdater extends AbstractMetadataUpdater<SensorWebDataEnvelope> {
 
     @Override
     public boolean supportsDataEnvelope(AbstractDataEnvelope dataEnvelope) {
@@ -21,8 +21,31 @@ public class SensorWebMetadataUpdater implements MetadataUpdater<SensorWebDataEn
     }
 
     @Override
-    public SensorWebDataEnvelope updateDataEnvelope(SensorWebDataEnvelope existingDataEnvelope, SensorWebDataEnvelope newDataEnvelope) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public SensorWebDataEnvelope updateDataEnvelope(
+            SensorWebDataEnvelope existingDataEnvelope,
+            SensorWebDataEnvelope newDataEnvelope) {
+
+        existingDataEnvelope.setAreaOfInterest(
+                this.mergeAreaOfInterest(
+                        existingDataEnvelope.getAreaOfInterest(),
+                        newDataEnvelope.getAreaOfInterest()));
+
+        existingDataEnvelope.setCreated(
+                this.mergeCreated(
+                        existingDataEnvelope.getCreated(),
+                        newDataEnvelope.getCreated()));
+
+        existingDataEnvelope.setModified(
+                this.mergeCreated(
+                        existingDataEnvelope.getModified(),
+                        newDataEnvelope.getModified()));
+
+        existingDataEnvelope.setTimeFrame(
+                this.mergeTimeFrame(
+                        existingDataEnvelope.getTimeFrame(),
+                        newDataEnvelope.getTimeFrame()));
+
+        return existingDataEnvelope;
     }
 
 }
