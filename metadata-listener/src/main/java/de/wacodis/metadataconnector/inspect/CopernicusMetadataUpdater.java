@@ -7,12 +7,14 @@ package de.wacodis.metadataconnector.inspect;
 
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.model.CopernicusDataEnvelope;
+import org.springframework.stereotype.Component;
 
 /**
  * MetadataUpdater for {@link CopernicusDataEnvelope} instances
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
+@Component
 public class CopernicusMetadataUpdater extends AbstractMetadataUpdater<CopernicusDataEnvelope> {
 
     @Override

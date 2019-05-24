@@ -7,11 +7,13 @@ package de.wacodis.metadataconnector.inspect;
 
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.model.GdiDeDataEnvelope;
+import org.springframework.stereotype.Component;
 
 /**
  * MetadataUpdater for {@link GdiDeDataEnvelope} instances
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
+@Component
 public class GdiDeMetadataUpdater extends AbstractMetadataUpdater<GdiDeDataEnvelope> {
 
     @Override

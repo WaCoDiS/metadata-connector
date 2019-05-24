@@ -7,12 +7,14 @@ package de.wacodis.metadataconnector.inspect;
 
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.model.SensorWebDataEnvelope;
+import org.springframework.stereotype.Component;
 
 /**
  * MetadataUpdater for {@link SensorWebDataEnvelope} instances
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
+@Component
 public class SensorWebMetadataUpdater extends AbstractMetadataUpdater<SensorWebDataEnvelope> {
 
     @Override

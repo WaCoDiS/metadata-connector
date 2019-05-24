@@ -8,6 +8,7 @@ package de.wacodis.metadataconnector.inspect;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Repository for {@link AbstractMetadataUpdater} that are specific to instances
@@ -15,10 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
+@Component
 public class MetadataUpdaterRepository {
 
     @Autowired
-    List<AbstractMetadataUpdater> metadataUpdaterList;
+    private List<AbstractMetadataUpdater> metadataUpdaterList;
 
     /**
      * Retrieves a {@link AbstractMetadataUpdater} depending on the
