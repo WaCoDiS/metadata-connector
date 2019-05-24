@@ -23,6 +23,7 @@
         <spring-cloud.version>Greenwich.M1</spring-cloud.version>   
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
         <wacodis-metadata-connector.version>0.0.1-SNAPSHOT</wacodis-metadata-connector.version>
+        <wacodis-core-engine-utils.version>0.0.1-SNAPSHOT</wacodis-core-engine-utils.version>
     </properties>
     
     <dependencyManagement>
@@ -36,6 +37,11 @@
                 <groupId>de.wacodis</groupId>
                 <artifactId>metadata-listener</artifactId>
                 <version>${wacodis-metadata-connector.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.wacodis</groupId>
+                <artifactId>core-engine-utils</artifactId>
+                <version>${wacodis-core-engine-utils.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

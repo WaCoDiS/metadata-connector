@@ -13,6 +13,10 @@
     <dependencies>
         <dependency>
             <groupId>de.wacodis</groupId>
+            <artifactId>core-engine-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.wacodis</groupId>
             <artifactId>metadata-connector-models</artifactId>
         </dependency>
         <dependency>
