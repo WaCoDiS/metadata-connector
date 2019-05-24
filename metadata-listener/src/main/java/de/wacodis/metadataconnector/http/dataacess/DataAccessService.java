@@ -7,15 +7,15 @@ package de.wacodis.metadataconnector.http.dataacess;
 
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -82,20 +82,19 @@ public class DataAccessService implements DataAccessProvider {
     }
 
     @Override
-    public AbstractDataEnvelope searchSingleDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException {
+    public Optional<AbstractDataEnvelope> searchSingleDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException {
         ResponseEntity<AbstractDataEnvelope> response = dataAccessService
                 .postForEntity(DATA_ENVELOPES_SEARCH_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
 
-        LOGGER.debug("POST request for DataEnvelope was sent with response code: {}",
+        LOGGER.debug("POST request for DataEnvelope search was sent with response code: {}",
                 response.getStatusCode());
 
-        if (!response.hasBody()) {
-            throw new DataAccessRequestException("DataEnvelopes were not found."
+        if (!response.getStatusCode().equals(HttpStatus.OK)) {
+            throw new DataAccessRequestException("Error while seraching for DataEvelope "
                     + " Reponse status code: "
                     + response.getStatusCode());
         }
-
-        return response.getBody();
+        return Optional.ofNullable(response.getBody());
     }
 
 }

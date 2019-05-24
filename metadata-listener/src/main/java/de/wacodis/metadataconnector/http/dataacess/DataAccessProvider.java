@@ -6,9 +6,10 @@
 package de.wacodis.metadataconnector.http.dataacess;
 
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
-import java.util.List;
+import java.util.Optional;
 
 /**
+ * Abstract provider for {@link AbstractDataEnvelope} instances
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
@@ -17,7 +18,7 @@ public interface DataAccessProvider {
     public AbstractDataEnvelope createDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
 
     public AbstractDataEnvelope updateDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
-    
-    public AbstractDataEnvelope searchSingleDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
+
+    public Optional<AbstractDataEnvelope> searchSingleDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException;
 
 }

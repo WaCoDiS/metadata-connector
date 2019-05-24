@@ -13,6 +13,7 @@ import de.wacodis.metadataconnector.model.AbstractDataEnvelopeAreaOfInterest;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelopeTimeFrame;
 import de.wacodis.metadataconnector.model.SensorWebDataEnvelope;
 import java.util.Arrays;
+import java.util.Optional;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -103,10 +104,24 @@ public class DataAccessServiceTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(mapper.writeValueAsString(expEnv))
                 );
-        AbstractDataEnvelope result = service.searchSingleDataEnvelope(testEnv);
+        Optional<AbstractDataEnvelope> result = service.searchSingleDataEnvelope(testEnv);
 
         mockServer.verify();
-        Assertions.assertEquals(expEnv, result);
+        Assertions.assertEquals(expEnv, result.get());
+    }
+
+    @Test
+    public void testSearchDataEnvelopeWithNoResult() throws JsonProcessingException, DataAccessRequestException {
+        mockServer.expect(ExpectedCount.once(),
+                requestTo("/dataenvelopes/search"))
+                .andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                );
+        Optional<AbstractDataEnvelope> result = service.searchSingleDataEnvelope(testEnv);
+
+        mockServer.verify();
+        Assertions.assertFalse(result.isPresent());
     }
 
     @Test
