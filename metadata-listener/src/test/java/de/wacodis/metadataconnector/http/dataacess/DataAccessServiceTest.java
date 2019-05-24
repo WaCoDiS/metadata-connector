@@ -80,6 +80,21 @@ public class DataAccessServiceTest {
     }
 
     @Test
+    public void testCreateDataEnvelopeWithSuccess() throws JsonProcessingException, DataAccessRequestException {
+        mockServer.expect(ExpectedCount.once(),
+                requestTo("/dataenvelopes"))
+                .andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(testEnv))
+                );
+        AbstractDataEnvelope result = service.createDataEnvelope(testEnv);
+
+        mockServer.verify();
+        Assertions.assertEquals(testEnv, result);
+    }
+
+    @Test
     public void testSearchDataEnvelopeWithSuccess() throws JsonProcessingException, DataAccessRequestException {
         mockServer.expect(ExpectedCount.once(),
                 requestTo("/dataenvelopes/search"))
