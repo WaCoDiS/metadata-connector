@@ -38,7 +38,7 @@ public class SensorWebMetadataUpdater extends AbstractMetadataUpdater<SensorWebD
                         newDataEnvelope.getCreated()));
 
         existingDataEnvelope.setModified(
-                this.mergeCreated(
+                this.mergeModified(
                         existingDataEnvelope.getModified(),
                         newDataEnvelope.getModified()));
 
