@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.wacodis.metadataconnector.inspect;
+package de.wacodis.metadataconnector.update;
 
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.model.SensorWebDataEnvelope;
