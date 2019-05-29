@@ -5,11 +5,13 @@
  */
 package de.wacodis.metadataconnector.http.dataacess;
 
+import java.io.IOException;
+
 /**
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
-public class DataAccessRequestException extends Exception {
+public class DataAccessRequestException extends IOException {
 
     public DataAccessRequestException() {
     }

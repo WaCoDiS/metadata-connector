@@ -19,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -45,19 +47,17 @@ public class DataAccessService implements DataAccessProvider {
 
     @Override
     public AbstractDataEnvelope createDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException {
-        ResponseEntity<AbstractDataEnvelope> response = dataAccessService
-                .postForEntity(DATA_ENVELOPES_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
-
-        LOGGER.debug("POST request for creating a new DataEnvelope was sent with response code: {}",
-                response.getStatusCode());
-
-        if (!response.hasBody()) {
-            throw new DataAccessRequestException("DataEnvelope resource could not be created."
-                    + " Reponse status code: "
-                    + response.getStatusCode());
+        try {
+            ResponseEntity<AbstractDataEnvelope> response = dataAccessService
+                    .postForEntity(DATA_ENVELOPES_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
+            return response.getBody();
+        } catch (HttpStatusCodeException ex) {
+            LOGGER.debug("POST request for creating a new DataEnvelope {} returned status code: {}.",
+                    dataEnvelope, ex.getStatusCode());
+            throw new DataAccessRequestException("HTTP client error while sending create DataEnvelope POST request.", ex);
+        } catch (RestClientException ex) {
+            throw new DataAccessRequestException("Unexpected client error while sending create DataEnvelope POST request.", ex);
         }
-
-        return response.getBody();
     }
 
     @Override
@@ -66,35 +66,31 @@ public class DataAccessService implements DataAccessProvider {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<AbstractDataEnvelope> entity = new HttpEntity<AbstractDataEnvelope>(dataEnvelope, headers);
 
-        ResponseEntity<AbstractDataEnvelope> response = dataAccessService
-                .exchange(DATA_ENVELOPES_ENDPOINT + "/" + dataEnvelope.getIdentifier(), HttpMethod.PUT, entity, AbstractDataEnvelope.class);
-
-        LOGGER.debug("PUT request for updating a DataEnvelope was sent with response code: {}",
-                response.getStatusCode());
-
-        if (!response.hasBody()) {
-            throw new DataAccessRequestException("The requested resource is not available: "
-                    + dataEnvelope.getIdentifier()
-                    + " Reponse status code: "
-                    + response.getStatusCode());
+        try {
+            ResponseEntity<AbstractDataEnvelope> response = dataAccessService
+                    .exchange(DATA_ENVELOPES_ENDPOINT + "/" + dataEnvelope.getIdentifier(), HttpMethod.PUT, entity, AbstractDataEnvelope.class);
+            return response.getBody();
+        } catch (HttpStatusCodeException ex) {
+            LOGGER.debug("PUT request for updating DataEnvelope {} returned status code: {}.",
+                    dataEnvelope, ex.getStatusCode());
+            throw new DataAccessRequestException("HTTP client error while sending update DataEnvelope PUT request.", ex);
+        } catch (RestClientException ex) {
+            throw new DataAccessRequestException("Unexpected client error while sending update DataEnvelope PUT request.", ex);
         }
-        return response.getBody();
     }
 
     @Override
     public Optional<AbstractDataEnvelope> searchSingleDataEnvelope(AbstractDataEnvelope dataEnvelope) throws DataAccessRequestException {
-        ResponseEntity<AbstractDataEnvelope> response = dataAccessService
-                .postForEntity(DATA_ENVELOPES_SEARCH_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
-
-        LOGGER.debug("POST request for DataEnvelope search was sent with response code: {}",
-                response.getStatusCode());
-
-        if (!response.getStatusCode().equals(HttpStatus.OK)) {
-            throw new DataAccessRequestException("Error while seraching for DataEvelope "
-                    + " Reponse status code: "
-                    + response.getStatusCode());
+        try {
+            ResponseEntity<AbstractDataEnvelope> response = dataAccessService
+                    .postForEntity(DATA_ENVELOPES_SEARCH_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
+            return Optional.ofNullable(response.getBody());
+        } catch (HttpStatusCodeException ex) {
+            LOGGER.debug("POST request for searching DataEnvelope {} returned status code: {}.",
+                    dataEnvelope, ex.getStatusCode());
+            throw new DataAccessRequestException("HTTP client error while sending search DataEnvelope POST request.", ex);
+        } catch (RestClientException ex) {
+            throw new DataAccessRequestException("Unexpected client error while sending search DataEnvelope POST request.", ex);
         }
-        return Optional.ofNullable(response.getBody());
     }
-
 }
