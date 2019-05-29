@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: datasource-observer
+  profiles:
+    active: docker
+  cloud:
+    stream:
+      bindings:
+        output-data-envelope:
+          destination: wacodis.test.data.available
+          binder: wacodis_rabbit
+          content-type: application/json
+      binders:
+        wacodis_rabbit:
+          type: rabbit
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
+management:
+  security:
+    enabled: false
+dataaccess:
+  uri: http://localhost:9000

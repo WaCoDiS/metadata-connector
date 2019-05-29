@@ -37,7 +37,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties("spring.dataaccess")
+@ConfigurationProperties("dataaccess")
 public class DataAccessConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataAccessConfiguration.class);

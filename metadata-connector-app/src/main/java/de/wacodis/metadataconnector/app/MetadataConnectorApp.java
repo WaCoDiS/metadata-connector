@@ -21,8 +21,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
 @SpringBootApplication
-@ComponentScan({
-    "de.wacodis.metadataconnector"})
+@ComponentScan({"de.wacodis.metadataconnector"
+})
 @RefreshScope
 public class MetadataConnectorApp {
 
