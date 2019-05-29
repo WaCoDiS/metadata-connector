@@ -5,14 +5,11 @@
  */
 package de.wacodis.metadataconnector.configuration;
 
-import de.wacodis.core.engine.utils.http.RequestLoggingInterceptor;
+import de.wacodis.metadataconnector.http.dataacess.DataAccessLoggingInterceptor;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.http.Header;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
@@ -80,7 +77,7 @@ public class DataAccessConfiguration {
 
         return builder
                 .rootUri(getUri())
-                .additionalInterceptors(new RequestLoggingInterceptor())
+                .additionalInterceptors(new DataAccessLoggingInterceptor())
                 .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(httpClient))
                 .build();
     }

@@ -15,10 +15,6 @@
             <artifactId>metadata-connector-models</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.wacodis</groupId>
-            <artifactId>core-engine-utils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
