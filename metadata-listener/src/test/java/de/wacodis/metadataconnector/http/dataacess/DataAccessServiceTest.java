@@ -96,6 +96,26 @@ public class DataAccessServiceTest {
     }
 
     @Test
+    public void testCreateDataEnvelopeWithErrorResponse() throws JsonProcessingException, DataAccessRequestException {
+        de.wacodis.metadataconnector.model.Error error = new de.wacodis.metadataconnector.model.Error();
+        error.code(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        error.message("Requested resource could not be created");
+
+        mockServer.expect(ExpectedCount.once(),
+                requestTo("/dataenvelopes"))
+                .andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(error))
+                );
+
+        Assertions.assertThrows(DataAccessRequestException.class, () -> {
+            service.createDataEnvelope(testEnv);
+        });
+        mockServer.verify();
+    }
+
+    @Test
     public void testSearchDataEnvelopeWithSuccess() throws JsonProcessingException, DataAccessRequestException {
         mockServer.expect(ExpectedCount.once(),
                 requestTo("/dataenvelopes/search"))
@@ -108,6 +128,26 @@ public class DataAccessServiceTest {
 
         mockServer.verify();
         Assertions.assertEquals(expEnv, result.get());
+    }
+
+    @Test
+    public void testSearchDataEnvelopeWithErrorResponse() throws JsonProcessingException, DataAccessRequestException {
+        de.wacodis.metadataconnector.model.Error error = new de.wacodis.metadataconnector.model.Error();
+        error.code(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        error.message("Could not search for requestd resource");
+
+        mockServer.expect(ExpectedCount.once(),
+                requestTo("/dataenvelopes/search"))
+                .andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(error))
+                );
+
+        Assertions.assertThrows(DataAccessRequestException.class, () -> {
+            service.searchSingleDataEnvelope(testEnv);
+        });
+        mockServer.verify();
     }
 
     @Test
@@ -137,6 +177,26 @@ public class DataAccessServiceTest {
 
         mockServer.verify();
         Assertions.assertEquals(testEnv, result);
+    }
+
+    @Test
+    public void testUpdateDataEnvelopeWithErrorResponse() throws JsonProcessingException, DataAccessRequestException {
+        de.wacodis.metadataconnector.model.Error error = new de.wacodis.metadataconnector.model.Error();
+        error.code(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        error.message("Requestd resource could not be updated");
+
+        mockServer.expect(ExpectedCount.once(),
+                requestTo("/dataenvelopes/" + testEnv.getIdentifier()))
+                .andExpect(method(HttpMethod.PUT))
+                .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(error))
+                );
+
+        Assertions.assertThrows(DataAccessRequestException.class, () -> {
+            service.updateDataEnvelope(testEnv);
+        });
+        mockServer.verify();
     }
 
     private SensorWebDataEnvelope prepareEnvelope() {
