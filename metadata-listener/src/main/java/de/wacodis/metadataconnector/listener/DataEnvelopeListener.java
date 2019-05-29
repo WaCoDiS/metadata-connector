@@ -9,6 +9,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 
 /**
+ * Listener for {@link  AbstractDataEnvelope} creation messsages
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */

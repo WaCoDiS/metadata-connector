@@ -9,7 +9,7 @@ import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import org.springframework.stereotype.Component;
 
 /**
- * Handler interface for a new DataEnvelope creation event
+ * Handler interface for a new {@link AbstractDataEnvelope} creation event
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
