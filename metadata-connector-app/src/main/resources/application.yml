@@ -1,12 +1,14 @@
 spring:
   application:
-    name: datasource-observer
+    name: metadata-connector
   profiles:
     active: docker
   cloud:
+    config:
+      url: http://localhost:8888
     stream:
       bindings:
-        output-data-envelope:
+        input-data-envelope:
           destination: wacodis.test.data.available
           binder: wacodis_rabbit
           content-type: application/json
@@ -22,4 +24,4 @@ management:
   security:
     enabled: false
 dataaccess:
-  uri: http://localhost:9000
+  uri: http://localhost:8082

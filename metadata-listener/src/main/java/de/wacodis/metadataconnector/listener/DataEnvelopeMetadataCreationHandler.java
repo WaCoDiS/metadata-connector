@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Handler for a {@link AbstractDataEnvelope} creation events that creates a new
+ * Handler for a {@link AbstractDataEnvelope} creation event that creates a new
  * metadata resource or updates an existing one
  *
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>

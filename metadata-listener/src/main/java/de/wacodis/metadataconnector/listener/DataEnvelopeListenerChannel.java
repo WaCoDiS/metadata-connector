@@ -13,7 +13,7 @@ import org.springframework.messaging.SubscribableChannel;
  * @author <a href="mailto:s.drost@52north.org">Sebastian Drost</a>
  */
 public interface DataEnvelopeListenerChannel {
-    String DATAENVELOPE_INPUT = "newDataEnvelope";
+    String DATAENVELOPE_INPUT = "input-data-envelope";
 
     @Input(DATAENVELOPE_INPUT)
     SubscribableChannel newDataEnvelope();

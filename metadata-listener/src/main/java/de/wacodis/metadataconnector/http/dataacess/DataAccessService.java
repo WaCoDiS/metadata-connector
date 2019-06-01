@@ -52,10 +52,11 @@ public class DataAccessService implements DataAccessProvider {
                     .postForEntity(DATA_ENVELOPES_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
             return response.getBody();
         } catch (HttpStatusCodeException ex) {
-            LOGGER.debug("POST request for creating a new DataEnvelope {} returned status code: {}.",
+            LOGGER.error("POST request for creating a new DataEnvelope {} returned status code: {}.",
                     dataEnvelope, ex.getStatusCode());
             throw new DataAccessRequestException("HTTP client error while sending create DataEnvelope POST request.", ex);
         } catch (RestClientException ex) {
+            LOGGER.error(ex.getMessage());
             throw new DataAccessRequestException("Unexpected client error while sending create DataEnvelope POST request.", ex);
         }
     }
@@ -71,10 +72,11 @@ public class DataAccessService implements DataAccessProvider {
                     .exchange(DATA_ENVELOPES_ENDPOINT + "/" + dataEnvelope.getIdentifier(), HttpMethod.PUT, entity, AbstractDataEnvelope.class);
             return response.getBody();
         } catch (HttpStatusCodeException ex) {
-            LOGGER.debug("PUT request for updating DataEnvelope {} returned status code: {}.",
+            LOGGER.error("PUT request for updating DataEnvelope {} returned status code: {}.",
                     dataEnvelope, ex.getStatusCode());
             throw new DataAccessRequestException("HTTP client error while sending update DataEnvelope PUT request.", ex);
         } catch (RestClientException ex) {
+            LOGGER.error(ex.getMessage());
             throw new DataAccessRequestException("Unexpected client error while sending update DataEnvelope PUT request.", ex);
         }
     }
@@ -86,10 +88,11 @@ public class DataAccessService implements DataAccessProvider {
                     .postForEntity(DATA_ENVELOPES_SEARCH_ENDPOINT, dataEnvelope, AbstractDataEnvelope.class);
             return Optional.ofNullable(response.getBody());
         } catch (HttpStatusCodeException ex) {
-            LOGGER.debug("POST request for searching DataEnvelope {} returned status code: {}.",
+            LOGGER.error("POST request for searching DataEnvelope {} returned status code: {}.",
                     dataEnvelope, ex.getStatusCode());
             throw new DataAccessRequestException("HTTP client error while sending search DataEnvelope POST request.", ex);
         } catch (RestClientException ex) {
+            LOGGER.error(ex.getMessage());
             throw new DataAccessRequestException("Unexpected client error while sending search DataEnvelope POST request.", ex);
         }
     }
