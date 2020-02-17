@@ -7,7 +7,7 @@ COPY . /app/metadata-connector/
 RUN mvn -f ./metadata-connector/pom.xml clean install
 
 # Run metadata-connector
-FROM openjdk:alpine
+FROM adoptopenjdk/openjdk8:alpine
 WORKDIR /app
 
 COPY --from=build app/metadata-connector/metadata-connector-app/target/metadata-connector-app-0.0.1-SNAPSHOT.jar /app/metadata-connector-app.jar
