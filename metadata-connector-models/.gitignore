@@ -26,3 +26,4 @@
 /.nb-gradle/
 nb*.xml
 /target/
+/src/main/resources/definitions/
