@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.wacodis</groupId>
@@ -9,8 +10,8 @@
     <artifactId>metadata-connector-models</artifactId>
     <name>WaCoDiS Metadata Connector Models</name>
     <packaging>jar</packaging>
-    
-     <dependencies>
+
+    <dependencies>
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -25,7 +26,14 @@
             <artifactId>validation-api</artifactId>
         </dependency>
     </dependencies>
-    
+
+    <scm>
+        <url>https://github.com/WaCoDiS/metadata-connector/</url>
+        <connection>scm:git:git://github.com/WaCoDiS/metadata-connector.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/WaCoDiS/metadata-connector.git</developerConnection>
+        <tag>v1.0.0</tag>
+    </scm>
+
     <profiles>
         <!--Unpack the model definition file from dependency and generate the models.-->
         <profile>
@@ -66,12 +74,12 @@
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
-                                <configuration>                    
+                                <configuration>
                                     <inputSpec>${project.basedir}/src/main/resources/definitions/wacodis-schemas.yml</inputSpec>
                                     <generatorName>spring</generatorName>
                                     <output>${project.basedir}</output>
                                     <modelPackage>de.wacodis.metadataconnector.model</modelPackage>
-                            
+
                                     <generateApis>false</generateApis>
                                     <generateModels>true</generateModels>
                                     <generateSupportingFiles>false</generateSupportingFiles>
@@ -119,7 +127,7 @@
                                     <unpack>false</unpack>
                                     <outputDirectory>${project.basedir}/src/main/resources/definitions</outputDirectory>
                                 </configuration>
-                            </execution>                                   
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
@@ -131,12 +139,12 @@
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
-                                <configuration>                    
+                                <configuration>
                                     <inputSpec>${project.basedir}/src/main/resources/definitions/wacodis-schemas.yml</inputSpec>
                                     <generatorName>spring</generatorName>
                                     <output>${project.basedir}</output>
                                     <modelPackage>de.wacodis.metadataconnector.model</modelPackage>
-                            
+
                                     <generateApis>false</generateApis>
                                     <generateModels>true</generateModels>
                                     <generateSupportingFiles>false</generateSupportingFiles>
