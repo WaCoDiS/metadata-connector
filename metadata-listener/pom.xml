@@ -4,7 +4,7 @@
     <parent>
         <groupId>de.wacodis</groupId>
         <artifactId>metadata-connector</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>metadata-listener</artifactId>
     <packaging>jar</packaging>
