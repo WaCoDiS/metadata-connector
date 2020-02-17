@@ -11,7 +11,13 @@
         <module>metadata-listener</module>
         <module>metadata-connector-models</module>
     </modules>
-
+    
+    <scm>
+        <url>https://github.com/WaCoDiS/metadata-connector/</url>
+        <connection>scm:git:git://github.com/WaCoDiS/metadata-connector.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/WaCoDiS/metadata-connector.git</developerConnection>
+        <tag>v1.0.0</tag>
+    </scm>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

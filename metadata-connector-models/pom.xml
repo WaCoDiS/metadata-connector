@@ -27,13 +27,6 @@
         </dependency>
     </dependencies>
 
-    <scm>
-        <url>https://github.com/WaCoDiS/metadata-connector/</url>
-        <connection>scm:git:git://github.com/WaCoDiS/metadata-connector.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/WaCoDiS/metadata-connector.git</developerConnection>
-        <tag>v1.0.0</tag>
-    </scm>
-
     <profiles>
         <!--Unpack the model definition file from dependency and generate the models.-->
         <profile>
