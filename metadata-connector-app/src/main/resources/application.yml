@@ -24,4 +24,4 @@ management:
   security:
     enabled: false
 dataaccess:
-  uri: http://localhost:8082
+  uri: http://localhost:8082/dataAccess
