@@ -34,7 +34,7 @@ public class GdiDeMetadataUpdater extends AbstractMetadataUpdater<GdiDeDataEnvel
                         newDataEnvelope.getCreated()));
 
         existingDataEnvelope.setModified(
-                this.mergeCreated(
+                this.mergeModified(
                         existingDataEnvelope.getModified(),
                         newDataEnvelope.getModified()));
 
