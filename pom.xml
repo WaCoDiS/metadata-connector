@@ -16,7 +16,7 @@
         <url>https://github.com/WaCoDiS/metadata-connector/</url>
         <connection>scm:git:git://github.com/WaCoDiS/metadata-connector.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/WaCoDiS/metadata-connector.git</developerConnection>
-        <tag>v1.0.0</tag>
+        <tag>v1.0.1</tag>
     </scm>
     
     <properties>
