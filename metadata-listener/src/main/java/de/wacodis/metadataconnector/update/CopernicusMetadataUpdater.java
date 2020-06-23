@@ -24,7 +24,8 @@ public class CopernicusMetadataUpdater extends AbstractMetadataUpdater<Copernicu
 
     @Override
     public AbstractDataEnvelope updateDataEnvelope(CopernicusDataEnvelope existingDataEnvelope, CopernicusDataEnvelope newDataEnvelope) {
-        return existingDataEnvelope;
+        newDataEnvelope.setIdentifier(existingDataEnvelope.getIdentifier());
+        return newDataEnvelope;
     }
 
 }
