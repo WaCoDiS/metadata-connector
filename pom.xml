@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.wacodis</groupId>
     <artifactId>metadata-connector</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
     <name>WaCoDiS Metadata Connector</name>
     <modules>
@@ -16,7 +16,7 @@
         <url>https://github.com/WaCoDiS/metadata-connector/</url>
         <connection>scm:git:git://github.com/WaCoDiS/metadata-connector.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/WaCoDiS/metadata-connector.git</developerConnection>
-        <tag>v1.0.0</tag>
+        <tag>v1.0.1</tag>
     </scm>
     
     <properties>
@@ -28,7 +28,7 @@
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.M1</spring-cloud.version>   
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
-        <wacodis-metadata-connector.version>1.0.1-SNAPSHOT</wacodis-metadata-connector.version>
+        <wacodis-metadata-connector.version>1.0.1</wacodis-metadata-connector.version>
         <release-plugin.version>3.0.0-M1</release-plugin.version>
     </properties>
     
