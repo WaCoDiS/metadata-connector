@@ -25,3 +25,4 @@ management:
     enabled: false
 dataaccess:
   uri: http://localhost:8082/dataAccess
+  dataenvelopeSearchDelay_Millies: 5000

@@ -5,12 +5,14 @@
  */
 package de.wacodis.metadataconnector.listener;
 
+import de.wacodis.metadataconnector.configuration.DataAccessConfiguration;
 import de.wacodis.metadataconnector.http.dataacess.DataAccessProvider;
 import de.wacodis.metadataconnector.http.dataacess.DataAccessRequestException;
 import de.wacodis.metadataconnector.update.MetadataUpdaterRepository;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.update.AbstractMetadataUpdater;
 import java.util.Optional;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,17 @@ public class DataEnvelopeMetadataCreationHandler implements DataEnvelopeHandler 
 
     @Autowired
     private MetadataUpdaterRepository metadataUpdaterRepository;
+    
+    @Autowired
+    private DataAccessConfiguration dataAccessConfig;
 
     @Override
     public void handleNewDataEnvelope(AbstractDataEnvelope dataEnvelope) {
+        LOGGER.info("handle new DataEnvelope with id " + dataEnvelope.getIdentifier());
+        //delay DataEnvelope search to make sure data access' index has been refreshed
+        //otherwise newly indexed DataEnvelopse might not be available for search
+        delay();
+        
         try {
             Optional<AbstractDataEnvelope> searchResult = dataAccessProvider.searchSingleDataEnvelope(dataEnvelope);
             if (searchResult.isPresent()) {
@@ -54,4 +64,19 @@ public class DataEnvelopeMetadataCreationHandler implements DataEnvelopeHandler 
         }
     }
 
+    public void delay(){
+        long delay_Millies = this.dataAccessConfig.getDataenvelopeSearchDelay_Millies();
+        
+        if(delay_Millies > 0){
+            LOGGER.info("wait {} milliseconds until handling new DataEnvelope to make sure data access' index has been refreshed", delay_Millies);
+            try {
+                Thread.sleep(delay_Millies);
+                LOGGER.info("waited for {} milliseconds, proceed handling new DataEnvelope", delay_Millies);
+            } catch (InterruptedException ex) {
+                LOGGER.warn("delay interrupted, proceed handling new DataEnvelope, data access' index might be not refreshed before sending search request, recently indexed DataEnvelopse might not yet be available for search");
+                LOGGER.error("DataEnvelope-search delay interrupted", ex);
+            }
+        }
+    }
+    
 }
