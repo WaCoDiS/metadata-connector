@@ -10,10 +10,12 @@ import de.wacodis.metadataconnector.update.AbstractMetadataUpdater;
 import de.wacodis.metadataconnector.update.SensorWebMetadataUpdater;
 import de.wacodis.metadataconnector.update.MetadataUpdaterRepository;
 import de.wacodis.metadataconnector.update.CopernicusMetadataUpdater;
+import de.wacodis.metadataconnector.update.DwdMetadataUpdater;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.model.CopernicusDataEnvelope;
 import de.wacodis.metadataconnector.model.GdiDeDataEnvelope;
 import de.wacodis.metadataconnector.model.SensorWebDataEnvelope;
+import de.wacodis.metadataconnector.model.DwdDataEnvelope;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.*;
@@ -31,7 +33,8 @@ import org.springframework.test.context.ContextConfiguration;
     CopernicusMetadataUpdater.class,
     GdiDeMetadataUpdater.class,
     MetadataUpdaterRepository.class,
-    SensorWebMetadataUpdater.class,})
+    SensorWebMetadataUpdater.class,
+    DwdMetadataUpdater.class})
 @SpringBootTest
 public class MetadataUpdaterRepositoryTest {
 
@@ -49,7 +52,8 @@ public class MetadataUpdaterRepositoryTest {
         return Stream.of(
                 Arguments.of(new CopernicusDataEnvelope(), CopernicusMetadataUpdater.class),
                 Arguments.of(new GdiDeDataEnvelope(), GdiDeMetadataUpdater.class),
-                Arguments.of(new SensorWebDataEnvelope(), SensorWebMetadataUpdater.class)
+                Arguments.of(new SensorWebDataEnvelope(), SensorWebMetadataUpdater.class),
+                Arguments.of(new DwdDataEnvelope(), DwdMetadataUpdater.class)
         );
     }
 
