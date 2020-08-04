@@ -12,7 +12,6 @@ import de.wacodis.metadataconnector.update.MetadataUpdaterRepository;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelope;
 import de.wacodis.metadataconnector.update.AbstractMetadataUpdater;
 import java.util.Optional;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
