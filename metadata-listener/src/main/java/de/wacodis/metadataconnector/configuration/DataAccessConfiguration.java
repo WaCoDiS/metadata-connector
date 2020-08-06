@@ -40,6 +40,7 @@ public class DataAccessConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataAccessConfiguration.class);
 
     private String uri;
+    private long dataenvelopeSearchDelay_Millies;
 
     public String getUri() {
         return uri;
@@ -49,6 +50,17 @@ public class DataAccessConfiguration {
         this.uri = uri;
         LOGGER.info("Data Access URI set to: " + this.uri);
     }
+
+    public long getDataenvelopeSearchDelay_Millies() {
+        return dataenvelopeSearchDelay_Millies;
+    }
+
+    public void setDataenvelopeSearchDelay_Millies(long dataenvelopeSearchDelay_Millies) {
+        this.dataenvelopeSearchDelay_Millies = dataenvelopeSearchDelay_Millies;
+        LOGGER.info("DataEnvelope-Search delay set to (milliseconds): " + this.getDataenvelopeSearchDelay_Millies());
+    }
+    
+    
 
     private RestTemplateBuilder builder;
 

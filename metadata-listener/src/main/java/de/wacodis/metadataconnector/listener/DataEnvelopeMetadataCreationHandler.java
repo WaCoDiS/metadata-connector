@@ -5,6 +5,7 @@
  */
 package de.wacodis.metadataconnector.listener;
 
+import de.wacodis.metadataconnector.configuration.DataAccessConfiguration;
 import de.wacodis.metadataconnector.http.dataacess.DataAccessProvider;
 import de.wacodis.metadataconnector.http.dataacess.DataAccessRequestException;
 import de.wacodis.metadataconnector.update.MetadataUpdaterRepository;
@@ -27,30 +28,61 @@ public class DataEnvelopeMetadataCreationHandler implements DataEnvelopeHandler 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataEnvelopeMetadataCreationHandler.class);
 
+    private final Object lockObj = new Object();
+
     @Autowired
     private DataAccessProvider dataAccessProvider;
 
     @Autowired
     private MetadataUpdaterRepository metadataUpdaterRepository;
 
+    @Autowired
+    private DataAccessConfiguration dataAccessConfig;
+
     @Override
     public void handleNewDataEnvelope(AbstractDataEnvelope dataEnvelope) {
-        try {
-            Optional<AbstractDataEnvelope> searchResult = dataAccessProvider.searchSingleDataEnvelope(dataEnvelope);
-            if (searchResult.isPresent()) {
-                AbstractMetadataUpdater updater = metadataUpdaterRepository.getMetadataUpdater(dataEnvelope);
-                AbstractDataEnvelope updatedDataEnvelope = updater.updateDataEnvelope(searchResult.get(), dataEnvelope);
-                updatedDataEnvelope = dataAccessProvider.updateDataEnvelope(updatedDataEnvelope);
-                LOGGER.info("DataEnvelope succesfully updated: {}", updatedDataEnvelope);
-            } else {
-                AbstractDataEnvelope newDataEnvelope = dataAccessProvider.createDataEnvelope(dataEnvelope);
-                LOGGER.info("DataEnvelope succesfully created: {}", newDataEnvelope);
-            }
+        //ensure sequential processing of DataEnvelopes
+        synchronized (lockObj) {
+            LOGGER.info("handle new DataEnvelope");
+            //delay DataEnvelope search to make sure data access' index has been refreshed
+            //otherwise newly indexed DataEnvelopse might not be available for search
+            delay();
 
-        } catch (DataAccessRequestException ex) {
-            LOGGER.error(ex.getMessage());
-            LOGGER.debug("Error while sending DataAcces API request for DataEnvelope: "
-                    + dataEnvelope.getIdentifier(), ex);
+            try {
+                Optional<AbstractDataEnvelope> searchResult = dataAccessProvider.searchSingleDataEnvelope(dataEnvelope);
+                if (searchResult.isPresent()) {
+                    AbstractMetadataUpdater updater = metadataUpdaterRepository.getMetadataUpdater(dataEnvelope);
+                    AbstractDataEnvelope updatedDataEnvelope = updater.updateDataEnvelope(searchResult.get(), dataEnvelope);
+                    updatedDataEnvelope = dataAccessProvider.updateDataEnvelope(updatedDataEnvelope);
+                    LOGGER.info("DataEnvelope succesfully updated: {}", updatedDataEnvelope);
+                } else {
+                    AbstractDataEnvelope newDataEnvelope = dataAccessProvider.createDataEnvelope(dataEnvelope);
+                    LOGGER.info("DataEnvelope succesfully created: {}", newDataEnvelope);
+                }
+
+            } catch (DataAccessRequestException ex) {
+                LOGGER.error(ex.getMessage());
+                LOGGER.debug("Error while sending DataAcces API request for DataEnvelope: "
+                        + dataEnvelope.getIdentifier(), ex);
+            } catch (Exception ex) {
+                LOGGER.error(ex.getMessage());
+                LOGGER.debug("Error while handliung new DataEnvelope", ex);
+            }
+        }
+    }
+
+    public void delay() {
+        long delay_Millies = this.dataAccessConfig.getDataenvelopeSearchDelay_Millies();
+
+        if (delay_Millies > 0) {
+            LOGGER.info("wait {} milliseconds until handling new DataEnvelope to make sure data access' index has been refreshed", delay_Millies);
+            try {
+                Thread.sleep(delay_Millies);
+                LOGGER.info("waited for {} milliseconds, proceed handling new DataEnvelope", delay_Millies);
+            } catch (InterruptedException ex) {
+                LOGGER.warn("delay interrupted, proceed handling new DataEnvelope, data access' index might be not refreshed before sending search request, recently indexed DataEnvelopse might not yet be available for search");
+                LOGGER.error("DataEnvelope-search delay interrupted", ex);
+            }
         }
     }
 
