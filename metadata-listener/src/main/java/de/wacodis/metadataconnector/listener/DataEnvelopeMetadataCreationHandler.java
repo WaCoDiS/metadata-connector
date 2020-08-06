@@ -28,45 +28,50 @@ public class DataEnvelopeMetadataCreationHandler implements DataEnvelopeHandler 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataEnvelopeMetadataCreationHandler.class);
 
+    private final Object lockObj = new Object();
+
     @Autowired
     private DataAccessProvider dataAccessProvider;
 
     @Autowired
     private MetadataUpdaterRepository metadataUpdaterRepository;
-    
+
     @Autowired
     private DataAccessConfiguration dataAccessConfig;
 
     @Override
     public void handleNewDataEnvelope(AbstractDataEnvelope dataEnvelope) {
-        LOGGER.info("handle new DataEnvelope");
-        //delay DataEnvelope search to make sure data access' index has been refreshed
-        //otherwise newly indexed DataEnvelopse might not be available for search
-        delay();
-        
-        try {
-            Optional<AbstractDataEnvelope> searchResult = dataAccessProvider.searchSingleDataEnvelope(dataEnvelope);
-            if (searchResult.isPresent()) {
-                AbstractMetadataUpdater updater = metadataUpdaterRepository.getMetadataUpdater(dataEnvelope);
-                AbstractDataEnvelope updatedDataEnvelope = updater.updateDataEnvelope(searchResult.get(), dataEnvelope);
-                updatedDataEnvelope = dataAccessProvider.updateDataEnvelope(updatedDataEnvelope);
-                LOGGER.info("DataEnvelope succesfully updated: {}", updatedDataEnvelope);
-            } else {
-                AbstractDataEnvelope newDataEnvelope = dataAccessProvider.createDataEnvelope(dataEnvelope);
-                LOGGER.info("DataEnvelope succesfully created: {}", newDataEnvelope);
-            }
+        //ensure sequential processing of DataEnvelopes
+        synchronized (lockObj) {
+            LOGGER.info("handle new DataEnvelope");
+            //delay DataEnvelope search to make sure data access' index has been refreshed
+            //otherwise newly indexed DataEnvelopse might not be available for search
+            delay();
 
-        } catch (DataAccessRequestException ex) {
-            LOGGER.error(ex.getMessage());
-            LOGGER.debug("Error while sending DataAcces API request for DataEnvelope: "
-                    + dataEnvelope.getIdentifier(), ex);
+            try {
+                Optional<AbstractDataEnvelope> searchResult = dataAccessProvider.searchSingleDataEnvelope(dataEnvelope);
+                if (searchResult.isPresent()) {
+                    AbstractMetadataUpdater updater = metadataUpdaterRepository.getMetadataUpdater(dataEnvelope);
+                    AbstractDataEnvelope updatedDataEnvelope = updater.updateDataEnvelope(searchResult.get(), dataEnvelope);
+                    updatedDataEnvelope = dataAccessProvider.updateDataEnvelope(updatedDataEnvelope);
+                    LOGGER.info("DataEnvelope succesfully updated: {}", updatedDataEnvelope);
+                } else {
+                    AbstractDataEnvelope newDataEnvelope = dataAccessProvider.createDataEnvelope(dataEnvelope);
+                    LOGGER.info("DataEnvelope succesfully created: {}", newDataEnvelope);
+                }
+
+            } catch (DataAccessRequestException ex) {
+                LOGGER.error(ex.getMessage());
+                LOGGER.debug("Error while sending DataAcces API request for DataEnvelope: "
+                        + dataEnvelope.getIdentifier(), ex);
+            }
         }
     }
 
-    public void delay(){
+    public void delay() {
         long delay_Millies = this.dataAccessConfig.getDataenvelopeSearchDelay_Millies();
-        
-        if(delay_Millies > 0){
+
+        if (delay_Millies > 0) {
             LOGGER.info("wait {} milliseconds until handling new DataEnvelope to make sure data access' index has been refreshed", delay_Millies);
             try {
                 Thread.sleep(delay_Millies);
@@ -77,5 +82,5 @@ public class DataEnvelopeMetadataCreationHandler implements DataEnvelopeHandler 
             }
         }
     }
-    
+
 }
