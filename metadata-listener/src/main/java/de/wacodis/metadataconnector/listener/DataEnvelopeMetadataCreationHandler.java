@@ -64,6 +64,9 @@ public class DataEnvelopeMetadataCreationHandler implements DataEnvelopeHandler 
                 LOGGER.error(ex.getMessage());
                 LOGGER.debug("Error while sending DataAcces API request for DataEnvelope: "
                         + dataEnvelope.getIdentifier(), ex);
+            } catch (Exception ex) {
+                LOGGER.error(ex.getMessage());
+                LOGGER.debug("Error while handliung new DataEnvelope", ex);
             }
         }
     }
