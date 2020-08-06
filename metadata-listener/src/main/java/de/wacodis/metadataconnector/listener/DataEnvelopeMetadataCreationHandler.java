@@ -39,7 +39,7 @@ public class DataEnvelopeMetadataCreationHandler implements DataEnvelopeHandler 
 
     @Override
     public void handleNewDataEnvelope(AbstractDataEnvelope dataEnvelope) {
-        LOGGER.info("handle new DataEnvelope with id " + dataEnvelope.getIdentifier());
+        LOGGER.info("handle new DataEnvelope");
         //delay DataEnvelope search to make sure data access' index has been refreshed
         //otherwise newly indexed DataEnvelopse might not be available for search
         delay();
