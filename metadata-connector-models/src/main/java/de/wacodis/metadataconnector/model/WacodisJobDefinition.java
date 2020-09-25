@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelopeAreaOfInterest;
 import de.wacodis.metadataconnector.model.AbstractSubsetDefinition;
 import de.wacodis.metadataconnector.model.WacodisJobDefinitionExecution;
+import de.wacodis.metadataconnector.model.WacodisJobDefinitionExecutionSettings;
 import de.wacodis.metadataconnector.model.WacodisJobDefinitionRetrySettings;
 import de.wacodis.metadataconnector.model.WacodisJobDefinitionTemporalCoverage;
 import de.wacodis.metadataconnector.model.WacodisJobStatus;
@@ -23,7 +24,7 @@ import javax.validation.constraints.*;
  * contains information about a WaCoDiS Job that will be used for scheduling, preparing and executing certain processes
  */
 @ApiModel(description = "contains information about a WaCoDiS Job that will be used for scheduling, preparing and executing certain processes")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-06-23T08:58:38.124+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-25T17:12:08.662888900+02:00[Europe/Berlin]")
 
 public class WacodisJobDefinition  implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -66,6 +67,9 @@ public class WacodisJobDefinition  implements Serializable {
 
   @JsonProperty("retrySettings")
   private WacodisJobDefinitionRetrySettings retrySettings = null;
+
+  @JsonProperty("executionSettings")
+  private WacodisJobDefinitionExecutionSettings executionSettings = null;
 
   @JsonProperty("inputs")
   @Valid
@@ -343,6 +347,28 @@ public class WacodisJobDefinition  implements Serializable {
     this.retrySettings = retrySettings;
   }
 
+  public WacodisJobDefinition executionSettings(WacodisJobDefinitionExecutionSettings executionSettings) {
+    this.executionSettings = executionSettings;
+    return this;
+  }
+
+  /**
+   * Get executionSettings
+   * @return executionSettings
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+  @Valid
+
+  public WacodisJobDefinitionExecutionSettings getExecutionSettings() {
+    return executionSettings;
+  }
+
+  public void setExecutionSettings(WacodisJobDefinitionExecutionSettings executionSettings) {
+    this.executionSettings = executionSettings;
+  }
+
   public WacodisJobDefinition inputs(List<AbstractSubsetDefinition> inputs) {
     this.inputs = inputs;
     return this;
@@ -393,12 +419,13 @@ public class WacodisJobDefinition  implements Serializable {
         Objects.equals(this.processingTool, wacodisJobDefinition.processingTool) &&
         Objects.equals(this.productCollection, wacodisJobDefinition.productCollection) &&
         Objects.equals(this.retrySettings, wacodisJobDefinition.retrySettings) &&
+        Objects.equals(this.executionSettings, wacodisJobDefinition.executionSettings) &&
         Objects.equals(this.inputs, wacodisJobDefinition.inputs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, useCase, created, lastFinishedExecution, status, execution, temporalCoverage, areaOfInterest, processingTool, productCollection, retrySettings, inputs);
+    return Objects.hash(id, name, description, useCase, created, lastFinishedExecution, status, execution, temporalCoverage, areaOfInterest, processingTool, productCollection, retrySettings, executionSettings, inputs);
   }
 
   @Override
@@ -419,6 +446,7 @@ public class WacodisJobDefinition  implements Serializable {
     sb.append("    processingTool: ").append(toIndentedString(processingTool)).append("\n");
     sb.append("    productCollection: ").append(toIndentedString(productCollection)).append("\n");
     sb.append("    retrySettings: ").append(toIndentedString(retrySettings)).append("\n");
+    sb.append("    executionSettings: ").append(toIndentedString(executionSettings)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("}");
     return sb.toString();

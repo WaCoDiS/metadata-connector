@@ -5,24 +5,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelopeAreaOfInterest;
 import de.wacodis.metadataconnector.model.AbstractDataEnvelopeTimeFrame;
+import de.wacodis.metadataconnector.model.DataEnvelopeQueryQueryParams;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.joda.time.DateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * extensible datatype for metadata that describes the processing of a product 
+ * query Data Access API for DataEnvelopes 
  */
-@ApiModel(description = "extensible datatype for metadata that describes the processing of a product ")
+@ApiModel(description = "query Data Access API for DataEnvelopes ")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-25T17:12:08.662888900+02:00[Europe/Berlin]")
 
-public class ProcessingMetadata  implements Serializable {
+public class DataEnvelopeQuery  implements Serializable {
   private static final long serialVersionUID = 1L;
-
-  @JsonProperty("process")
-  private String process = null;
 
   @JsonProperty("areaOfInterest")
   private AbstractDataEnvelopeAreaOfInterest areaOfInterest = null;
@@ -30,31 +30,11 @@ public class ProcessingMetadata  implements Serializable {
   @JsonProperty("timeFrame")
   private AbstractDataEnvelopeTimeFrame timeFrame = null;
 
-  @JsonProperty("created")
-  private DateTime created = null;
+  @JsonProperty("queryParams")
+  @Valid
+  private Map<String, DataEnvelopeQueryQueryParams> queryParams = null;
 
-  public ProcessingMetadata process(String process) {
-    this.process = process;
-    return this;
-  }
-
-  /**
-   * name of the process that was responsible for creating the product 
-   * @return process
-  **/
-  @ApiModelProperty(required = true, value = "name of the process that was responsible for creating the product ")
-  @NotNull
-
-
-  public String getProcess() {
-    return process;
-  }
-
-  public void setProcess(String process) {
-    this.process = process;
-  }
-
-  public ProcessingMetadata areaOfInterest(AbstractDataEnvelopeAreaOfInterest areaOfInterest) {
+  public DataEnvelopeQuery areaOfInterest(AbstractDataEnvelopeAreaOfInterest areaOfInterest) {
     this.areaOfInterest = areaOfInterest;
     return this;
   }
@@ -63,8 +43,7 @@ public class ProcessingMetadata  implements Serializable {
    * Get areaOfInterest
    * @return areaOfInterest
   **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+  @ApiModelProperty(value = "")
 
   @Valid
 
@@ -76,7 +55,7 @@ public class ProcessingMetadata  implements Serializable {
     this.areaOfInterest = areaOfInterest;
   }
 
-  public ProcessingMetadata timeFrame(AbstractDataEnvelopeTimeFrame timeFrame) {
+  public DataEnvelopeQuery timeFrame(AbstractDataEnvelopeTimeFrame timeFrame) {
     this.timeFrame = timeFrame;
     return this;
   }
@@ -85,8 +64,7 @@ public class ProcessingMetadata  implements Serializable {
    * Get timeFrame
    * @return timeFrame
   **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+  @ApiModelProperty(value = "")
 
   @Valid
 
@@ -98,26 +76,33 @@ public class ProcessingMetadata  implements Serializable {
     this.timeFrame = timeFrame;
   }
 
-  public ProcessingMetadata created(DateTime created) {
-    this.created = created;
+  public DataEnvelopeQuery queryParams(Map<String, DataEnvelopeQueryQueryParams> queryParams) {
+    this.queryParams = queryParams;
+    return this;
+  }
+
+  public DataEnvelopeQuery putQueryParamsItem(String key, DataEnvelopeQueryQueryParams queryParamsItem) {
+    if (this.queryParams == null) {
+      this.queryParams = new HashMap<String, DataEnvelopeQueryQueryParams>();
+    }
+    this.queryParams.put(key, queryParamsItem);
     return this;
   }
 
   /**
-   * time on which the dataset was created 
-   * @return created
+   * map for any query parameter that should be matched except areaOfInterest and timeFrame  
+   * @return queryParams
   **/
-  @ApiModelProperty(required = true, value = "time on which the dataset was created ")
-  @NotNull
+  @ApiModelProperty(value = "map for any query parameter that should be matched except areaOfInterest and timeFrame  ")
 
   @Valid
 
-  public DateTime getCreated() {
-    return created;
+  public Map<String, DataEnvelopeQueryQueryParams> getQueryParams() {
+    return queryParams;
   }
 
-  public void setCreated(DateTime created) {
-    this.created = created;
+  public void setQueryParams(Map<String, DataEnvelopeQueryQueryParams> queryParams) {
+    this.queryParams = queryParams;
   }
 
 
@@ -129,27 +114,25 @@ public class ProcessingMetadata  implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProcessingMetadata processingMetadata = (ProcessingMetadata) o;
-    return Objects.equals(this.process, processingMetadata.process) &&
-        Objects.equals(this.areaOfInterest, processingMetadata.areaOfInterest) &&
-        Objects.equals(this.timeFrame, processingMetadata.timeFrame) &&
-        Objects.equals(this.created, processingMetadata.created);
+    DataEnvelopeQuery dataEnvelopeQuery = (DataEnvelopeQuery) o;
+    return Objects.equals(this.areaOfInterest, dataEnvelopeQuery.areaOfInterest) &&
+        Objects.equals(this.timeFrame, dataEnvelopeQuery.timeFrame) &&
+        Objects.equals(this.queryParams, dataEnvelopeQuery.queryParams);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(process, areaOfInterest, timeFrame, created);
+    return Objects.hash(areaOfInterest, timeFrame, queryParams);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProcessingMetadata {\n");
+    sb.append("class DataEnvelopeQuery {\n");
     
-    sb.append("    process: ").append(toIndentedString(process)).append("\n");
     sb.append("    areaOfInterest: ").append(toIndentedString(areaOfInterest)).append("\n");
     sb.append("    timeFrame: ").append(toIndentedString(timeFrame)).append("\n");
-    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    queryParams: ").append(toIndentedString(queryParams)).append("\n");
     sb.append("}");
     return sb.toString();
   }
