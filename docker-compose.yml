@@ -3,7 +3,7 @@ services:
   metadata-connector:
     build:
       context: .
-    image: wacodis/metadata-connector:1.0.1
+    image: wacodis/metadata-connector:1.0.3
     ports:
       - 8080:8080
     environment: 
