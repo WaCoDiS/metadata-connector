@@ -90,9 +90,8 @@ WaCoDiS Metadata Connector is a Spring Boot application and provides an _applica
 module for configuration purpose. A documentation for common application properties can be found at
 https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 
-In addition, some configuration parameters relate to different Spring Cloud components, i.e. [Spring Cloud Stream]  
-(https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/) and [Spring Cloud Config]
-(https://docs.spring.io/spring-cloud-config/docs/current/reference/html/).
+In addition, some configuration parameters relate to different Spring Cloud components, i.e. [Spring Cloud Stream](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/)
+and [Spring Cloud Config](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/).
 
 To get started the most relevant configuration parameters are described below.
 
@@ -116,15 +115,13 @@ sure you have installed all dependencies with `mvn clean install` from the proje
 
 ### Run with Docker
 For convenience, a _docker-compose.yml_ is provided for running the Metadata Connector as Docker container. Just, run 
-`docker-compose up` from the project root. The latest Docker image will be fetched from [Docker Hub]
-(https://hub.docker.com/repository/docker/wacodis/metadata-connector). The _docker-compose.yml_ also contains the  
+`docker-compose up` from the project root. The latest Docker image will be fetched from [Docker Hub](https://hub.docker.com/repository/docker/wacodis/metadata-connector). The _docker-compose.yml_ also contains the  
 most important configuration parameters as environment variables. Feel free to adapt the parameters for your needs.
 
 ## User Guide
 WaCoDiS Metadata Connector is part of the great microservice-oriented WaCoDiS System with the scope to handle metadata
-information about datasets that have been published by [WaCoDiS Datasource Observer] (https://github.com/WaCoDiS/datasource-observer).
-For this prupose it listens for asynchronous `DataEnvelope` messages and interconnects to [WaCoDiS DataAccess API]
-(https://github.com/WaCoDiS/data-access-api). Hence, Metadata Connector does not provide an API endpoint that can be 
+information about datasets that have been published by [WaCoDiS Datasource Observer](https://github.com/WaCoDiS/datasource-observer).
+For this prupose it listens for asynchronous `DataEnvelope` messages and interconnects to [WaCoDiS DataAccess API](https://github.com/WaCoDiS/data-access-api). Hence, Metadata Connector does not provide an API endpoint that can be 
 requested. However, for development or testing purposes you can publish `DataEnvelope` messages manually via AMQP. A
 lightweigt AMQP publishing client can be found at https://github.com/WaCoDiS/Tools.
 
@@ -150,8 +147,7 @@ TODO
 - Wupperverband, Wuppertal
 - EFTAS Fernerkundung Technologietransfer GmbH, Münster
 
-The research project WaCoDiS is funded by the BMVI as part of the [mFund programme]
-(https://www.bmvi.de/DE/Themen/Digitales/mFund/Ueberblick/ueberblick.html)  
+The research project WaCoDiS is funded by the BMVI as part of the [mFund programme](https://www.bmvi.de/DE/Themen/Digitales/mFund/Ueberblick/ueberblick.html)  
 <p align="center">
   <img src="https://raw.githubusercontent.com/WaCoDiS/apis-and-workflows/master/misc/logos/mfund.jpg" height="100">
   <img src="https://raw.githubusercontent.com/WaCoDiS/apis-and-workflows/master/misc/logos/bmvi.jpg" height="100">
