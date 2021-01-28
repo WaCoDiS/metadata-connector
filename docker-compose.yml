@@ -3,8 +3,13 @@ services:
   metadata-connector:
     build:
       context: .
-    image: wacodis/metadata-connector:1.0.3
+    image: wacodis/metadata-connector:latest
     ports:
       - 8080:8080
     environment: 
-      - spring.rabbitmq.host=test.52north.org
+      - SPRING_RABBITMQ_HOST=host.docker.internal
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=rabbitmq
+      - SPRING_RABBITMQ_PASSWORD=rabbitmq
+      - SPRING_CLOUD_STREAM_BINDINGS_INPUTDATAENVELOPE_DESTINATION=wacodis.test.data.available
+      - DATAACCESS_URI=http://host.docker.internal:8082/dataAccess
