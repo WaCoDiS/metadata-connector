@@ -5,8 +5,14 @@ The WaCoDiS Metadata Connector component provides routines for handling DataEnve
 to the DataAccess API for creating new metadata resources.
 
 **Table of Content**  
-TODO  
-
+1. [WaCoDiS Project Information](#wacodis-project-information)
+2. [Overview](#overview) 
+3. [Installation / Building Information](#installation--building-information)
+4. [Deployment](#deployment)
+5. [User Guide](#user-guide)
+6. [Developer Information](#developer-information)
+7. [Contact](#contact)
+8. [Credits and Contributing Organizations](#credits-and-contributing-organizations)
 
 ## WaCoDiS Project Information
 <p align="center">
@@ -55,7 +61,7 @@ framework. Therefore, it is not necessary to deploy WaCoDiS Data Access manually
 * __Spring Cloud__  
 [Spring Cloud](https://spring.io/projects/spring-cloud) is used for exploiting some ready-to-use features in order to implement
 an event-driven workflow. In particular, [Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream) is used
-for subscribing to asynchronous messages within thw WaCoDiS system.
+for subscribing to asynchronous messages within the WaCoDiS system.
 * __RabbitMQ__  
 For communication with other WaCoDiS components of the WaCoDiS system the message broker [RabbitMQ](https://www.rabbitmq.com/)
 is utilized. RabbitMQ is not part of WaCoDiS Metadata Connector and therefore [must be deployed separately](#preconditions).
@@ -80,30 +86,55 @@ Configuration is fetched from [WaCoDiS Config Server](https://github.com/WaCoDiS
 available, configuration values located at *src/main/resources/application.yml* within the Metadata Connector App submodule
 are applied instead.   
 #### Parameters
-TODO
-Describe configuration parameters
+WaCoDiS Metadata Connector is a Spring Boot application and provides an _application.yml_ within the metadata-connector-app
+module for configuration purpose. A documentation for common application properties can be found at
+https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 
+In addition, some configuration parameters relate to different Spring Cloud components, i.e. [Spring Cloud Stream]  
+(https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/) and [Spring Cloud Config]
+(https://docs.spring.io/spring-cloud-config/docs/current/reference/html/).
 
-### Deployment
-TODO
-This section describes deployment scenarios, options and preconditions.
+To get started the most relevant configuration parameters are described below.
+
+* `spring.rabbitmq.host`: Name of the node running a RabbitMQ instance
+* `spring.rabbitmq.port`: RabbitMQ port to connect to
+* `spring.rabbitmq.username`: Username for RabbitMQ connections
+* `spring.rabbitmq.password`: Password for RabbitMQ connectio
+* `spring.cloud.stream.bindings.input-data-envelope.destination`: Topic used to listen for published DataEnvelope messages
+* `dataaccess.uri`: URL that points to a WaCoDiS DataAccess API instance
+
+## Deployment
+### Dependencies
+WaCoDiS Metadata Connector requires a running RabbitMQ instance for consuming messages as well as a running
+WaCoDiS DataAccess API for creating or updating metadata resources. For starting a RabbitMQ instance as Docker container
+a _docker-compose.yml_ is provided at _./docker/rabbitmq_. Detailed deployment instructions for the DataAccess API can 
+be found at https://github.com/WaCoDiS/data-access-api. 
+
+### Run with Maven
+Just start the application by running `mvn spring-boot:run` from the root of the `metadata-connector-app` module. Make
+sure you have installed all dependencies with `mvn clean install` from the project root.
+
+### Run with Docker
+For convenience, a _docker-compose.yml_ is provided for running the Metadata Connector as Docker container. Just, run 
+`docker-compose up` from the project root. The latest Docker image will be fetched from [Docker Hub]
+(https://hub.docker.com/repository/docker/wacodis/metadata-connector). The _docker-compose.yml_ also contains the  
+most important configuration parameters as environment variables. Feel free to adapt the parameters for your needs.
 
 ## User Guide
-TODO
-Describe how to run and use this component
+WaCoDiS Metadata Connector is part of the great microservice-oriented WaCoDiS System with the scope to handle metadata
+information about datasets that have been published by [WaCoDiS Datasource Observer] (https://github.com/WaCoDiS/datasource-observer).
+For this prupose it listens for asynchronous `DataEnvelope` messages and interconnects to [WaCoDiS DataAccess API]
+(https://github.com/WaCoDiS/data-access-api). Hence, Metadata Connector does not provide an API endpoint that can be 
+requested. However, for development or testing purposes you can publish `DataEnvelope` messages manually via AMQP. A
+lightweigt AMQP publishing client can be found at https://github.com/WaCoDiS/Tools.
 
-## Contribution - Developer Information
-This section contains information for developers.
-
-### How to Contribute
-TODO
-Describe how to extend this module
-
+## Developer Information
 ### Branching
-The master branch provides sources for stable builds. The develop branch represents the latest (maybe unstable) state of development.
+The master branch provides sources for stable builds. The develop branch represents the latest (maybe unstable)
+state of development.
 
 ### License and Third Party Lib POM Plugins
-[optional]
+TODO
 
 ## Contact
 |    Name   |   Organization    |    Mail    |
@@ -119,7 +150,8 @@ The master branch provides sources for stable builds. The develop branch represe
 - Wupperverband, Wuppertal
 - EFTAS Fernerkundung Technologietransfer GmbH, Münster
 
-The research project WaCoDiS is funded by the BMVI as part of the [mFund programme](https://www.bmvi.de/DE/Themen/Digitales/mFund/Ueberblick/ueberblick.html)  
+The research project WaCoDiS is funded by the BMVI as part of the [mFund programme]
+(https://www.bmvi.de/DE/Themen/Digitales/mFund/Ueberblick/ueberblick.html)  
 <p align="center">
   <img src="https://raw.githubusercontent.com/WaCoDiS/apis-and-workflows/master/misc/logos/mfund.jpg" height="100">
   <img src="https://raw.githubusercontent.com/WaCoDiS/apis-and-workflows/master/misc/logos/bmvi.jpg" height="100">
