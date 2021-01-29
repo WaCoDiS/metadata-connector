@@ -147,7 +147,8 @@ generating model classes from an OpenAPI document. The _generate-models_ profile
 artifact you first have to create for the [OpenAPI definition](https://github.com/WaCoDiS/apis-and-workflows/tree/master/openapi)
 project. By using the _download-generate-models_ profile there is no need to create the artifact in beforehand, since
 the execution of this profile will download the latest OpenAPI definitions and then creates the models on top of it. 
-You can trigger the profiles by respectively running `mvn clean compile -Pgenerate-models` and `mvn clean compile -Pgenerate-models`.
+You can trigger the profiles by respectively running `mvn clean compile -Pgenerate-models` and
+`mvn clean compile -Pdownload-generate-models`.
   
 2. To support the updating of dataset types at the [WaCoDiS DataAccess API](https://github.com/WaCoDiS/data-access-api),
 you have to provide a new implementation of the `AbstractMetadataUpdater` class. Note, that it is only required to
