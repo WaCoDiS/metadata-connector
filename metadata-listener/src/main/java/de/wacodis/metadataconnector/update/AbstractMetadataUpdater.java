@@ -17,8 +17,21 @@ import org.joda.time.DateTime;
  */
 public abstract class AbstractMetadataUpdater<T extends AbstractDataEnvelope> {
 
-    public abstract boolean supportsDataEnvelope(AbstractDataEnvelope dataEnvelop);
+    /**
+     * Checks if the updater supports a certain {@link AbstractDataEnvelope} implementation
+     *
+     * @param dataEnvelope {@link AbstractDataEnvelope} that should be updated
+     * @return true if the updater supports a certain {@link AbstractDataEnvelope} implementation
+     */
+    public abstract boolean supportsDataEnvelope(AbstractDataEnvelope dataEnvelope);
 
+    /**
+     * Updates a certain {@link AbstractDataEnvelope} resource if already existent
+     *
+     * @param existingDataEnvelope the existing resource
+     * @param newDataEnvelope new resource
+     * @return the updated {@link AbstractDataEnvelope} resource
+     */
     public abstract AbstractDataEnvelope updateDataEnvelope(T existingDataEnvelope, T newDataEnvelope);
 
     /**
