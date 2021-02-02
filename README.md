@@ -79,7 +79,7 @@ can build the project by running `mvn clean install` from root directory
 ### Build using Docker
 The project contains a Dockerfile for building a Docker image. Simply run `docker build -t wacodis/metadata-connector:latest .`
 in order to build the image. You will find some detailed information about running the Metadata Connector as Docker container
-within the [run section](#using-docker) .
+within the [deployment section](#run-with-docker).
 
 ### Configuration
 Configuration is fetched from [WaCoDiS Config Server](https://github.com/WaCoDiS/config-server). If config server is not
