@@ -57,14 +57,14 @@ WaCoDiS Metadata Connector is tested with Oracle JDK 8 and OpenJDK 8. Unless sta
 This project uses the build-management tool [Apache Maven](https://maven.apache.org/)
 * __Spring Boot__  
 WaCoDiS Metadata Connector is a standalone application built with the [Spring Boot](https://spring.io/projects/spring-boot) 
-framework. Therefore, it is not necessary to deploy WaCoDiS Data Access manually with a web server.  
+framework. Therefore, it is not necessary to deploy WaCoDiS Metadata Connector manually with a web server.  
 * __Spring Cloud__  
 [Spring Cloud](https://spring.io/projects/spring-cloud) is used for exploiting some ready-to-use features in order to implement
 an event-driven workflow. In particular, [Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream) is used
 for subscribing to asynchronous messages within the WaCoDiS system.
 * __RabbitMQ__  
 For communication with other WaCoDiS components of the WaCoDiS system the message broker [RabbitMQ](https://www.rabbitmq.com/)
-is utilized. RabbitMQ is not part of WaCoDiS Metadata Connector and therefore [must be deployed separately](#preconditions).
+is utilized. RabbitMQ is not part of WaCoDiS Metadata Connector and therefore [must be deployed separately](#dependencies).
 * __OpenAPI__  
 [OpenAPI](https://github.com/OAI/OpenAPI-Specification) is used for the specification of data models used within this project.
 
@@ -122,13 +122,14 @@ to adapt the parameters for your needs.
 ## User Guide
 WaCoDiS Metadata Connector is part of the great microservice-oriented WaCoDiS System with the scope to handle metadata
 information about datasets that have been published by [WaCoDiS Datasource Observer](https://github.com/WaCoDiS/datasource-observer).
-For this prupose it listens for asynchronous `DataEnvelope` messages and interconnects to [WaCoDiS DataAccess API](https://github.com/WaCoDiS/data-access-api).
+For this purpose it listens for asynchronous `DataEnvelope` messages and interconnects to [WaCoDiS DataAccess API](https://github.com/WaCoDiS/data-access-api).
 Hence, Metadata Connector does not provide an API endpoint that can be requested. However, for development or testing
-purposes you can publish `DataEnvelope` messages manually via AMQP. A lightweigt AMQP publishing client can be found at
+purposes you can publish `DataEnvelope` messages manually via AMQP. A lightweight AMQP publishing client can be found at
 https://github.com/WaCoDiS/Tools.
 
 ## Developer Information
-### How to contribute
+
+### Developer guidelines
 Up to now, Metadata Connector supports four different dataset types in shape of implementations of the
 `AbstractDataEnvelope` model class 
 * `CopernicusDataEnvelope`: Describes a Copernicus resource e.g., provided at CODE-DE or ESA Open Access Hub.
@@ -140,7 +141,7 @@ It is possible to enhance Metadata Connector for handling additional dataset typ
 required:
 1. Create a model class for the additional data type by implementing `AbstractDataEnvelope`.  
 1.1 In order to be consistent with other WaCoDiS components regarding the support for different data types, we strongly
-recommend to generate the new model classes from an [OpenAPI definition](https://github.com/WaCoDiS/apis-and-workflows/tree/master/openapi).
+recommend generating the new model classes from an [OpenAPI definition](https://github.com/WaCoDiS/apis-and-workflows/tree/master/openapi).
 If not already done, first define your new _DataEnvelope_ within the OpenAPI document.  
 1.2 The [Metadata Connector Models module](metadata-connector-models) provides Maven profiles for automatically
 generating model classes from an OpenAPI document. The _generate-models_ profile generates the models from a Maven
@@ -156,6 +157,10 @@ implement an updating routine for discovered dataset resources that have been al
 but maybe changed over time at the data source. The creation of new datasets will be handled uniformly for all dataset
 types, so that there is no need to implement creation routines for new types.
 
+### How to contribute
+Feel free to implement missing features by creating a pull request. For any feature requests or found bugs, we kindly
+ask you to create an issue. 
+
 ### Branching
 The master branch provides sources for stable builds. The develop branch represents the latest (maybe unstable)
 state of development.
@@ -163,13 +168,15 @@ state of development.
 ### License and Third Party Lib POM Plugins
 TODO
 
-## Contact
-|    Name   |   Organization    |    Mail    |
+## Contributing Developers
+|    Name   |   Organization    |    GitHub    |
 | :-------------: |:-------------:| :-----:|
-| Sebastian Drost | Bochum University of Applied Sciences | sebastian.drost@hs-bochum.de |
-| Arne Vogt | Bochum University of Applied Sciences | arne.vogt@hs-bochum.de |
-| Andreas Wytzisk  | Bochum University of Applied Sciences | andreas.wytzisk@hs-bochum.de |
-| Matthes Rieke | 52° North GmbH | m.rieke@52north.org |
+| Sebastian Drost | 52° North GmbH | [SebaDro](https://github.com/SebaDro) |
+| Arne Vogt | 52° North GmbH | [arnevogt](https://github.com/arnevogt) |
+| Matthes Rieke | 52° North GmbH | [matthesrieke](https://github.com/matthesrieke) |
+
+## Contact
+TODO
 
 ## Credits and Contributing Organizations
 - Department of Geodesy, Bochum University of Applied Sciences, Bochum
