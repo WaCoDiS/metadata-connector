@@ -176,7 +176,8 @@ TODO
 | Matthes Rieke | 52° North GmbH | [matthesrieke](https://github.com/matthesrieke) |
 
 ## Contact
-TODO
+The WaCoDiS project is maintained by [52°North GmbH](https://52north.org/). If you have any questions about this or any
+other repository related to WaCoDiS, please contact wacodis-info@52north.org.
 
 ## Credits and Contributing Organizations
 - Department of Geodesy, Bochum University of Applied Sciences, Bochum
