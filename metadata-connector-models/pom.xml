@@ -4,7 +4,7 @@
     <parent>
         <groupId>de.wacodis</groupId>
         <artifactId>metadata-connector</artifactId>
-        <version>1.0.4-SNAPSHOT</version>
+        <version>2.0.0</version>
     </parent>
     <artifactId>metadata-connector-models</artifactId>
     <name>WaCoDiS Metadata Connector Models</name>

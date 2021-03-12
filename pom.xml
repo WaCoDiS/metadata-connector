@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.wacodis</groupId>
     <artifactId>metadata-connector</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
     <name>WaCoDiS Metadata Connector</name>
     <inceptionYear>2019</inceptionYear>
@@ -19,7 +18,7 @@
         <url>https://github.com/WaCoDiS/metadata-connector/</url>
         <connection>scm:git:git://github.com/WaCoDiS/metadata-connector.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/WaCoDiS/metadata-connector.git</developerConnection>
-        <tag>v1.0.3</tag>
+        <tag>v2.0.0</tag>
     </scm>
 
     <licenses>
@@ -40,7 +39,7 @@
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.M1</spring-cloud.version>
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
-        <wacodis-metadata-connector.version>1.0.4-SNAPSHOT</wacodis-metadata-connector.version>
+        <wacodis-metadata-connector.version>2.0.0</wacodis-metadata-connector.version>
         <release-plugin.version>3.0.0-M1</release-plugin.version>
     </properties>
 
