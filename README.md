@@ -166,9 +166,9 @@ The master branch provides sources for stable builds. The develop branch represe
 state of development.
 
 ### License and Third Party Lib POM Plugins
-TODO
+Apache License, Version 2.0
 
-## Contributing Developers
+### Contributing Developers
 |    Name   |   Organization    |    GitHub    |
 | :-------------: |:-------------:| :-----:|
 | Sebastian Drost | 52° North GmbH | [SebaDro](https://github.com/SebaDro) |
